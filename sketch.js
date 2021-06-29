@@ -7,7 +7,7 @@ var canvas, angle, tower, ground, cannon, boat;
 var balls = [];
 var boats = [];
 
-
+//class Boat created in Boat.js 
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   towerImage = loadImage("./assets/tower.png");
@@ -22,7 +22,8 @@ function setup() {
   tower = new Tower(width / 2 - 650, height - 290, 250, 580);
   cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
 
-  boat = new Boat(width, height - 100, 200, 200, -100);
+  //making single boat for trial
+  //boat = new Boat(width, height - 100, 200, 200, -100);
   
 }
 
@@ -33,6 +34,16 @@ function draw() {
   Engine.update(engine);
   ground.display();
 
+  /* 
+  Matter.Body.setVelocity( boat.body , 
+      {
+        x: -0.9,
+        y: 0
+      }
+     );
+     
+  boat.display();
+  */
   showBoats();
 
   for (var i = 0; i < balls.length; i++) {
