@@ -5,9 +5,11 @@ const Constraint = Matter.Constraint;
 var engine, world, backgroundImg;
 var canvas, angle, tower, ground, cannon, boat;
 var balls = [];
+//need an array to store mutliple boats created
 var boats = [];
 
 //class Boat created in Boat.js 
+
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   towerImage = loadImage("./assets/tower.png");
@@ -44,22 +46,27 @@ function draw() {
      
   boat.display();
   */
+  
+  //displaying and pushing new boats to boats array
   showBoats();
 
+  //checking collision between each ball and boat pair
   for (var i = 0; i < balls.length; i++) {
     showCannonBalls(balls[i], i);
+    
+    //checking entire boats array for ball i
     for (var j = 0; j < boats.length; j++) {
-      if (balls[i] !== undefined && boats[j] !== undefined) {
-        var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
-        if (collision.collided) {
-          boats[j].remove(j);
+      
+        if (balls[i] !== undefined && boats[j] !== undefined) {
+          var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
+          if (collision.collided) {
+            boats[j].remove(j);
 
-          Matter.World.remove(world, balls[i].body);
-          balls.splice(i, 1);
-          i--;
-          
-        }
-      } 
+            Matter.World.remove(world, balls[i].body);
+            balls.splice(i, 1);
+            i--;    
+          }
+        } 
     }
   }
 
@@ -88,9 +95,10 @@ function showCannonBalls(ball, index) {
 }
 
 
-//function to show the boat
+//function to show the boats and create a new boat if there are less than 4 boats on the screen
 function showBoats() {
   if (boats.length > 0) {
+    //create a new boat if there are less than 4 boats on the screen and the last boat has crossed a little distance
     if (
       boats.length < 4 &&
       boats[boats.length - 1].body.position.x < width - 300
@@ -100,7 +108,8 @@ function showBoats() {
       var boat = new Boat(width,height - 100, 200, 200, position);
       boats.push(boat);
     }
-
+    
+    
     for (var i = 0; i < boats.length; i++) {
       Matter.Body.setVelocity(boats[i].body, {
         x: -0.9,
@@ -109,7 +118,11 @@ function showBoats() {
 
       boats[i].display();
     }
-  } else {
+  } 
+  //create first boat when boats array is empty
+  else 
+  {
+    //create first boat when boats array is empty
     var boat = new Boat(width, height - 100, 200, 200, -100);
     boats.push(boat);
   }
