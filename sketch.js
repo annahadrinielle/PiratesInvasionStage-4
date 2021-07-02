@@ -16,13 +16,13 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(windowWidth - 200, windowHeight - 150);
+  canvas = createCanvas(windowWidth - 200, windowHeight);
   engine = Engine.create();
   world = engine.world;
   angle = -PI / 4;
   ground = new Ground(0, height - 1, width * 2, 1);
-  tower = new Tower(width / 2 - 650, height - 290, 250, 580);
-  cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
+  tower = new Tower(width / 2 - 550, height - 290, 250, 580);
+  cannon = new Cannon(width / 2 - 500, height / 2 - 220, 120, 40, angle);
 
   //making single boat for trial
   //boat = new Boat(width, height - 100, 200, 200, -100);
